@@ -1,0 +1,33 @@
+<html>
+    <head></head>
+    <body>
+        <form onsubmit="event.preventDefault()">
+            <h1><%= product.title %></h1>
+            <input type="text" name="title" value="<%= product.title %>" id="title">
+            <br>
+            <input type="text" name="price" value="<%= product.price %>" id="price">
+            <br>
+            <button onclick="updateProduct()">Update Product</button>
+        </form>
+        <script>
+            function updateProduct(){
+                console.log(document.getElementById("price").value)
+                var updatedProduct = {
+                    title:document.getElementById("title").value,
+                    price:document.getElementById("price").value
+                }
+                console.log(updatedProduct)
+                fetch("http://localhost:3700/updateProduct",{
+                    method:'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedProduct)
+                })
+                .then(res=>{
+                    res.json().then((data)=>{
+                        console.log(data)
+                    })
+                })
+            }
+        </script>
+    </body>
+</html>
